@@ -1,0 +1,44 @@
+﻿<Window x:Class="FinVitamin_Manager.Views.ListCourerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinVitamin_Manager.Views"
+        mc:Ignorable="d"
+        Title="Курьеры" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185*">
+
+            </ColumnDefinition>
+            <ColumnDefinition Width="607*">
+
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Height="45" Width="150" Content="Назначить" FontSize="18" Command="{Binding SelectCourerCommand}" >
+                
+            </Button>
+        </Grid>
+
+        <ListView Grid.Column="1" ItemsSource="{Binding Courers}" FontSize="14" SelectedItem="{Binding Courer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Возраст" Width="80" DisplayMemberBinding="{Binding Age }" ></GridViewColumn>
+                    <GridViewColumn Header="Vk" Width="50" DisplayMemberBinding="{Binding Vk}"></GridViewColumn>
+                    <GridViewColumn Header="Метро" Width="50" DisplayMemberBinding="{Binding Metro }"></GridViewColumn>
+                    <GridViewColumn Header="Наличие авто" Width="100" DisplayMemberBinding="{Binding  HaveCar}"    ></GridViewColumn>
+                    <GridViewColumn Header="Дата рождения" Width="100" DisplayMemberBinding="{Binding  DateOfBirdth, StringFormat=dd-MM-yy}"></GridViewColumn>
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

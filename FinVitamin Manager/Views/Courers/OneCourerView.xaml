@@ -1,0 +1,161 @@
+﻿<Page x:Class="FinVitamin_Manager.Views.Courers.OneCourerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinVitamin_Manager.Views.Courers"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OneCourerView"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+       xmlns:my="clr-namespace:FinVitamin_Manager.Converter"
+      xmlns:uu="clr-namespace:FinVitamin_Manager.Models.Enums"
+      xmlns:local2="clr-namespace:FinVitamin_Manager.Views.Converter">
+    <Page.Resources>
+        <local2:VisabilityConverter x:Key="VisabilityConverter" />
+        <local2:EdingConverter x:Key="EdingConverter"/>
+        <local2:DiliveryOrdersCoverter x:Key="DiliveryOrdersCoverter"></local2:DiliveryOrdersCoverter>
+        <local2:OrderSpbConverter x:Key="OrderSpbConverter"></local2:OrderSpbConverter>
+        <local2:TimeConverter x:Key="TimeConverter"></local2:TimeConverter>
+        <local2:InvoiceForCourerConverter x:Key="InvoiceForCourerConverter"></local2:InvoiceForCourerConverter>
+    </Page.Resources>
+    <TabControl>
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="15" Height="15" Fill="Aqua"></Ellipse>
+                    <TextBlock Text="Описание курьера" FontSize="14"/>
+                </StackPanel>
+
+
+
+            </TabItem.Header>
+
+            <TabItem.Content>
+
+
+
+                <Grid Grid.Column="1" x:Name="AddCourer"    >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.ColumnSpan="2" Text="Добавление нового курьера" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"   Visibility="{Binding IsEding, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=VisabilityConverter}, ConverterParameter=1}"></TextBlock>
+                    <TextBlock Grid.ColumnSpan="2" Text="Редактирование  курьера" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"  Visibility="{Binding IsEding, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ResourceKey=VisabilityConverter}}"></TextBlock>
+                    <TextBlock Text="Имя" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+                    <TextBlock Text="Возраст" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+                    <TextBlock Text="Страница ВК" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+                    <TextBlock Text="Ближайшее метро" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+                    <TextBlock Text="Наличие машины" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+                    <TextBlock Text="Дата рождения" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+
+                    <TextBox Grid.Column="1" Grid.Row="1"  FontSize="18" Height="30" Margin="10" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <xctk:IntegerUpDown   Height="30" Margin="10"  Grid.Column="1" Grid.Row="2" Value="{ Binding Age, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="14" Maximum="100"   />
+                    <TextBox Text="{Binding Vk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"  FontSize="18" Height="30" Margin="10" ></TextBox>
+
+                    <ComboBox  Grid.Column="1"  Grid.Row="4"
+                              ItemsSource="{Binding Source={my:Enumeration {x:Type uu:MetroStation}}}"               
+                        DisplayMemberPath="Description"
+                        SelectedValue="{Binding Metro}" VerticalAlignment="Center"
+                        SelectedValuePath="Value"  >
+                    </ComboBox>
+                    <Grid Grid.Row="5" Grid.Column="1"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Content="Да"  GroupName="one" IsChecked="{Binding HaveCar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="18" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" ></RadioButton>
+                        <RadioButton Content="Нет" GroupName="one"  IsChecked="{Binding HaveCar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource EdingConverter}}" FontSize="18" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></RadioButton>
+
+                    </Grid>
+                    <DatePicker Grid.Row="6" Grid.Column="1"   DisplayDateStart="01/01/1970"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" SelectedDate="{Binding DateOfBirdth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ></DatePicker>
+                    <Button Grid.Row="8" Grid.ColumnSpan="2" Height="50" Width="250" Content="Сохранить" Command="{Binding SaveCommand}"></Button>
+                </Grid>
+            </TabItem.Content>
+        </TabItem>
+        <TabItem Visibility="{Binding IsEding,Converter={StaticResource ResourceKey=VisabilityConverter}}">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="15" Height="15" Fill="#FF74C710"></Ellipse>
+                    <TextBlock Text="Статистика" FontSize="14"/>
+                </StackPanel>
+            </TabItem.Header>
+            <TabItem.Content>
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Статистика" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Height="34" Margin="334,32" Width="126"  />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Выполненные заказы" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Заработанные деньги" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Заказы в работе" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding EndedOrders ,UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding EarnMoney ,UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding  OrdersinWork,UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="8*"></RowDefinition>
+                            <RowDefinition Height="27*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Заказы" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center"   Width="80"  />
+
+
+                        <ListView  Grid.Row="1" ItemsSource="{Binding CourerTask}">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Header="Номер" Width="60" DisplayMemberBinding="{Binding OrderSpb.IdString}"/>
+                                    <GridViewColumn Header="Статус" Width="150"  >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock  Background="{Binding OrderSpb.IsCompleted, Converter={StaticResource InvoiceForCourerConverter},ConverterParameter=2}" Text="{Binding OrderSpb.IsCompleted, Converter={StaticResource InvoiceForCourerConverter},ConverterParameter=1}">
+                                                    
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Метро" Width="150" DisplayMemberBinding="{Binding OrderSpb.MetroStation}"/>
+                                    <GridViewColumn Header="Дата" Width="150" DisplayMemberBinding="{Binding OrderSpb.DateDilivery,StringFormat=dd-MM-yy}"/>
+                                    <GridViewColumn Header="Время" Width="150" DisplayMemberBinding="{Binding OrderSpb.TimeDilivery}"/>
+                                    <GridViewColumn Header="Стоимость" Width="150" DisplayMemberBinding="{Binding OrderSpb.DelivetyCost}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    </Grid>
+                </Grid>
+            </TabItem.Content>
+        </TabItem>
+    </TabControl>
+</Page>

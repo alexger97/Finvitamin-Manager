@@ -1,0 +1,38 @@
+﻿<Window x:Class="FinVitamin_Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinVitamin_Manager.ViewModels"
+        mc:Ignorable="d"
+        Title="Finnvitamin Manager" WindowState="Maximized">
+    
+    <Grid   >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="113*"></ColumnDefinition>
+            <ColumnDefinition Width="647*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="{StaticResource  PrimaryHueMidBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+           <!-- <Button Background="AliceBlue" Height="40"  Grid.Row="0" Command="{Binding ClicOneCommand}"> Добавить заказ</Button>
+            <Button Background="AliceBlue" x:Name="button" Grid.Row="1" Height="40" Content="Заказы"  Command="{Binding ClicTwoCommand}"   />
+            <Button Background="AliceBlue" x:Name="butto2" Grid.Row="3" Height="40" Content="Менеджер товаров"  Command="{Binding ClicThirdCommand}"  />
+            <Button Background="AliceBlue"  Grid.Row="2" Height="40" Content="Курьеры"  Command="{Binding ClicFourthCommand}"  />
+        --> </Grid>
+       
+        <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <StackPanel x:Name="One">
+
+
+            </StackPanel>
+        </ScrollViewer>
+        <Frame Grid.Column="1" Content="{Binding CurrentPage, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  NavigationUIVisibility="Hidden" ></Frame>
+
+    </Grid>
+</Window>

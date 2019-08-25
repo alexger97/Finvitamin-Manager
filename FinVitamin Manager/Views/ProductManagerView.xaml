@@ -1,0 +1,262 @@
+﻿<Page x:Class="FinVitamin_Manager.Views.ProductManagerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinVitamin_Manager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000"
+      Title="ProductManagerView"
+       xmlns:my="clr-namespace:FinVitamin_Manager.Converter"
+       xmlns:uu="clr-namespace:FinVitamin_Manager.Models.Enums"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local2="clr-namespace:FinVitamin_Manager.Views.Converter" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      x:Name="oop"
+      >
+    <Page.Resources>
+        <local2:VisabilityConverter x:Key="VisabilityConverter" />
+        <local2:OrderRigionConverter x:Key="OrderRigionConverter"></local2:OrderRigionConverter>
+        <local2:OrderSpbConverter x:Key="OrderSpbConverter"></local2:OrderSpbConverter>
+    </Page.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                
+                <ColumnDefinition Width="43*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+               
+
+
+            </Grid>
+            <Grid x:Name="AddProduct" Grid.Column="1" Visibility="{Binding  AddProduct,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisabilityConverter }}">
+
+                <Grid  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23*"></RowDefinition>
+                        <RowDefinition Height="240*"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="5,15,5,15" Background="LightGreen" Visibility="{Binding IsEdding,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ResourceKey= VisabilityConverter}, ConverterParameter=1}">
+                        <TextBlock Text="Добавление нового продукта" HorizontalAlignment="Center" FontSize="18"></TextBlock>
+                    </Grid>
+
+                    <Grid Grid.Row="0" Margin="5,15,5,15" Background="OrangeRed"  Visibility="{Binding IsEdding,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ResourceKey= VisabilityConverter}}">
+                        <TextBlock Text="Редактирование старого продукта" HorizontalAlignment="Center" FontSize="18"></TextBlock>
+                    </Grid>
+
+                    <TabControl Grid.Row="1" SelectedIndex="{Binding SelectIndexTab,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Height="10" Width="10" Fill="Black" />
+                                    <TextBlock Margin="3">Описание</TextBlock>
+
+                                </StackPanel>
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Наименовние товара" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Описание товара" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Поставщик" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Закупочная цена" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Вес" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Цена" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="Текущее количество" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <Button Grid.Row="11" Grid.ColumnSpan="2" Height="50" Width="250"  HorizontalAlignment="Center" Content="Сохранить товар " FontSize="20" Command="{Binding AddCommand}"></Button>
+
+
+
+                                    <TextBox Margin="10,0,10,0" Grid.Row="1" Grid.Column="1" FontSize="18" Height="30" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                                    <TextBox Margin="10,0,10,0"  Grid.Row="2" Grid.Column="1" FontSize="18" Height="30" Text="{Binding Decsription,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                                    <ComboBox Margin="10,0,10,0"  Grid.Row="3" Grid.Column="1"
+                              ItemsSource="{Binding Source={my:Enumeration {x:Type uu:ProviderType}}}"               
+                        DisplayMemberPath="Description"
+                        SelectedValue="{Binding ProviderType}"
+                        SelectedValuePath="Value" Height="30" >
+                                    </ComboBox>
+
+
+                                    <TextBox  Margin="10,0,10,0"  Grid.Row="5" Grid.Column="1" FontSize="18" Height="30" Text="{Binding PurchasePrice ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                                    <TextBox  Margin="10,0,10,0" Grid.Row="6" Grid.Column="1" FontSize="18" Height="30" Text="{Binding Weight ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                                    <TextBox  Margin="10,0,10,0"  Grid.Row="7" Grid.Column="1" FontSize="18" Height="30" Text="{Binding Price ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                                    <Grid Grid.Row="9" Grid.Column="1">
+                                        <xctk:IntegerUpDown Height="40"  Value="{ Binding  CurrentBalance, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="1"  Margin="20,10,20,10" />
+                                    </Grid>
+
+                                </Grid>
+                            </TabItem.Content>
+                        </TabItem>
+                        <TabItem Visibility="{Binding IsEdding,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ResourceKey= VisabilityConverter}}">
+
+                            <TabItem.Header >
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Height="10" Width="10" Fill="Black" />
+                                    <TextBlock Margin="3">Присутствие в заказах</TextBlock>
+
+                                </StackPanel>
+                            </TabItem.Header>
+
+
+                            <TabItem.Content >
+                                <Grid Visibility="{Binding IsEdding,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ResourceKey= VisabilityConverter}}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="51*"></RowDefinition>
+                                        <RowDefinition Height="389*"></RowDefinition>
+                                        <RowDefinition Height="42*"></RowDefinition>
+                                        <RowDefinition Height="397*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock FontSize="25" HorizontalAlignment="Center"> В заказах по Санкт-Петербургу</TextBlock>
+                                    <TextBlock FontSize="25" HorizontalAlignment="Center" Grid.Row="2"> В заказах по Регионам</TextBlock>
+
+                                    <ListView Grid.Row="1" SelectedItem="{Binding CurrentPresenceOrderSpb,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"   ItemsSource="{Binding  PresenceOrderSpbs,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
+                                        <ListView.View>
+                                            <GridView>
+                                               <!--   <GridViewColumn Header="          " Width="150">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Command="{Binding OpenOrderCommand}" >Перейти</Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn> -->
+                                                <GridViewColumn    DisplayMemberBinding="{Binding Count,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Width="100">
+                                                    <GridViewColumn.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock FontWeight="Black">Количество товара</TextBlock>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.HeaderTemplate>
+
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=1}" Width="100"/>
+                                                <GridViewColumn Header="Начало обработки" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=2}" Width="100"/>
+                                                <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=10}" Width="150"/>
+                                                <GridViewColumn Header="Заказчик " DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=3}" Width="300"/>
+                                                <GridViewColumn Header="Адресс доставки  " DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=5}" Width="200"/>
+                                                <GridViewColumn Header="Получатель" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=4}" Width="300"/>
+                                                <GridViewColumn Header="Тип доставки" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=5}" Width="100"/>
+                                                <GridViewColumn Header="Конечный адресс" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=6}" Width="300"/>
+                                                <GridViewColumn Header="Стоимость доставки" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=7}" Width="150"/>
+                                                <GridViewColumn Header="Дата доставки" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=8}" Width="150"/>
+                                                <GridViewColumn Header="Итого" DisplayMemberBinding="{Binding OrderSpb,Converter={StaticResource OrderSpbConverter }, ConverterParameter=9}" Width="150"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+
+
+
+
+
+
+
+
+
+
+                                    <ListView   SelectedItem="{Binding CurrentPresenceOrderRegion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ForRegion" Grid.Row="3" ItemsSource="{Binding  PresenceOrderRegions, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" >
+                                        <ListView.View>
+                                            <GridView>
+                                                 <!--<GridViewColumn Header="          " Width="150">
+                                                    <GridViewColumn.CellTemplate>
+                                                       <DataTemplate>
+                                                            <Button Command="{Binding ElementName=oop,Path= OpenOrderCommand,}" >Перейти</Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>-->
+                                                <GridViewColumn    DisplayMemberBinding="{Binding Count,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Width="100">
+                                                    <GridViewColumn.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock FontWeight="Black">Количество товара</TextBlock>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.HeaderTemplate>
+
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=1}" Width="100"/>
+                                                <GridViewColumn Header="Начало обработки" DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=2}" Width="100"/>
+                                                <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=10}" Width="150"/>
+                                                <GridViewColumn Header="Заказчик " DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=3}" Width="300"/>
+                                                <GridViewColumn Header="Адресс доставки  " DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=5}" Width="200"/>
+                                                <GridViewColumn Header="Получатель" DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=4}" Width="300"/>
+                                                <GridViewColumn Header="Дата отправки" DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=6}" Width="100"/>
+                                                <GridViewColumn Header="Тип отправки"  DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=7}" Width="100"/>
+                                                <GridViewColumn Header="Стоимость отправки"  DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=8}" Width="200"/>
+                                                <GridViewColumn Header="Итого"  DisplayMemberBinding="{Binding OrderRegion,Converter={StaticResource OrderRigionConverter}, ConverterParameter=9}" Width="200"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
+                            </TabItem.Content>
+                        </TabItem>
+                    </TabControl>
+
+
+
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Column="1"   
+             Visibility="{Binding  ListProducts,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisabilityConverter }}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="133*"></RowDefinition>
+                    <RowDefinition Height="867*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Список всех товаров" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid ItemsSource="{Binding Products}"  AutoGenerateColumns="False"  CanUserAddRows="false"  SelectedItem="{Binding CurrentProduct, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick" >
+                                <i:InvokeCommandAction Command="{Binding EditCommand}"              />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.Columns >
+
+                            <DataGridTextColumn  FontSize="20"  IsReadOnly="True" Width="150"  Binding="{Binding Path=Name}" Header="Имя"/>
+                            <DataGridTextColumn  FontSize="20" IsReadOnly="True" Width="150" Binding="{Binding Path=Decsription}" Header="Описание"/>
+                            <DataGridTextColumn  FontSize="20" IsReadOnly="True" Width="80" Binding="{Binding Path=Weight}" Header="Вес"/>
+                            <DataGridTextColumn  FontSize="20" IsReadOnly="True" Width="150" Binding="{Binding Path=PurchasePrice}" Header="Закупочная Цена"/>
+                            <DataGridTextColumn  FontSize="20" IsReadOnly="True" Width="150" Binding="{Binding Path=Price}" Header="Цена"/>
+                            <DataGridTextColumn  FontSize="20" IsReadOnly="True" Width="150" Binding="{Binding Path=CurrentBalance}" Header="Баланс"/>
+
+                        </DataGrid.Columns>
+
+
+
+
+                    </DataGrid>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

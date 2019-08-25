@@ -1,0 +1,210 @@
+﻿<Page x:Class="FinVitamin_Manager.Views.ListOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinVitamin_Manager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListOrders"
+      xmlns:my="clr-namespace:FinVitamin_Manager.Views.Converter"
+       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      
+      >
+    <Page.Resources>
+        <my:PaymentStatusValueConverter  x:Key="PaymentStatusValueConverter"></my:PaymentStatusValueConverter>
+        <my:ProccessingStatusValueConverter x:Key="ProccessingStatusValueConverter" ></my:ProccessingStatusValueConverter>
+        <my:SendVariantValueConverter x:Key="SendVariantValueConverter"></my:SendVariantValueConverter>
+        <my:TypeOfDeliveryValueConverter x:Key="TypeOfDeliveryValueConverter"></my:TypeOfDeliveryValueConverter>
+        <my:TypeOfOfficeValueConverter x:Key="TypeOfOfficeValueConverter" ></my:TypeOfOfficeValueConverter>
+        <my:TypeOfPaymentValueConverter x:Key="TypeOfPaymentValueConverter" ></my:TypeOfPaymentValueConverter>
+        <my:VisabilityConverter x:Key="VisabilityConverter" ></my:VisabilityConverter>
+        <my:TypeOfPackingValueConverter x:Key="TypeOfPackingValueConverter" />
+    </Page.Resources>
+    <ScrollViewer>
+        <Grid >
+
+
+
+            <TabControl x:Name="products">
+                <TabItem x:Name="smartphonesTab">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="10" Width="10" Fill="Black" />
+                            <TextBlock Margin="3">Заказы Санкт-Петербург</TextBlock>
+
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <StackPanel Margin="0,0,0,-9">
+                            <RadioButton x:Name="iii"   GroupName="y"  IsChecked="True">Доставка по городу</RadioButton>
+                            <RadioButton x:Name="dil"  GroupName="y"  >Самовывоз</RadioButton>
+                            <RadioButton  x:Name="last" GroupName="y">Все заказы</RadioButton>
+
+                            <Grid>
+                                <DataGrid x:Name="SaintPeterBurgDilivery" SelectedItem="{Binding CurrentSpbOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="15,15,15,15" Visibility="{Binding ElementName=iii,Path=IsChecked,Mode=TwoWay, Converter={StaticResource VisabilityConverter}}" ItemsSource="{Binding OrdersSpbDilivery, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction Command="{Binding EditCommand}"  CommandParameter="{Binding ElementName=SaintPeterBurgDilivery,Path=SelectedItem}"             />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <DataGrid.Columns >
+                                        <DataGridTextColumn   FontSize="15" IsReadOnly="True" Width="70"  Binding="{Binding IdString}" Header="Номер заказа"/>
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path= PaymentStatus,Converter={StaticResource PaymentStatusValueConverter } }" Header="Статус оплаты"/>
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding Path= ProccessingStatus, Converter={StaticResource ProccessingStatusValueConverter } }" Header="Статус обработки заказа"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path=TypeOfDelivery , Converter={StaticResource TypeOfPaymentValueConverter } }" Header="Тип оплаты"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding ArrivalTime ,StringFormat=dd-MM-yy}" Header="Поступление "/>
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding StartExecute,StringFormat=dd-MM-yy}" Header="Начало обрабортки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding CustomerName}" Header="Заказчик" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding RecipientFullName}" Header="Получатель" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="150"  Binding="{Binding RecipientTelephone}" Header="Телефон получателя" />
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding MetroStation}" Header="Метро" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding AdressDilivery}" Header="Адрес доставки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding DateDilivery,StringFormat=dd-MM-yy}" Header="Дата доставки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding TimeDilivery }" Header="Время доставки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"   Header="Курьер" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding DelivetyCost }" Header="Стоимость доставки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding Comment }" Header="Комментарий" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding TotalToPay }" Header="Итого" />
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+                                <DataGrid x:Name="SaintPeterBurgPickUp" SelectedItem="{Binding CurrentSpbOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" Visibility="{Binding ElementName=dil,Path=IsChecked,Converter={StaticResource VisabilityConverter}}" Margin="15,15,15,15" ItemsSource="{Binding OrdersSpbPickUp, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction Command="{Binding EditCommand}"     CommandParameter="{Binding ElementName=SaintPeterBurgPickUp,Path=SelectedItem}"              />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <DataGrid.Columns >
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="70"  Binding="{Binding IdString}" Header="Номер заказа"/>
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path= PaymentStatus,Converter={StaticResource PaymentStatusValueConverter } }" Header="Статус оплаты"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="80"  Binding="{Binding Path= ProccessingStatus, Converter={StaticResource ProccessingStatusValueConverter } }" Header="Статус обработки заказа"/>
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="80"  Binding="{Binding Path=TypeOfDelivery , Converter={StaticResource TypeOfPaymentValueConverter } }" Header="Тип оплаты"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding ArrivalTime,StringFormat=dd-MM-yy}" Header="Поступление "/>
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding StartExecute,StringFormat=dd-MM-yy}" Header="Начало обрабортки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding CustomerName}" Header="Заказчик" />
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding RecipientFullName}" Header="Получатель" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="150"  Binding="{Binding RecipientTelephone}" Header="Телефон получателя" />
+
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding TypeOfOffice, Converter={StaticResource TypeOfOfficeValueConverter }}" Header="Склад" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding DateDilivery,StringFormat=dd-MM-yy}" Header="Дата подъезда" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding TimeDilivery }" Header="Время подъезда" />
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding Comment }" Header="Комментарий" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding TotalToPay }" Header="Итого" />
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+
+                                <DataGrid x:Name="SaintPeterBurg" SelectedItem="{Binding CurrentSpbOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ElementName=last,Path=IsChecked,Converter={StaticResource VisabilityConverter}}" Margin="15,15,15,15" ItemsSource="{Binding OrdersSpb, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction Command="{Binding EditCommand}"   CommandParameter="{Binding ElementName=SaintPeterBurg,Path=SelectedItem}"           />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <DataGrid.Columns >
+                                        <DataGridTextColumn  FontSize="15"  IsReadOnly="True" Width="50"  Binding="{Binding IdString}" Header="Номер заказа"/>
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path= PaymentStatus,Converter={StaticResource PaymentStatusValueConverter } }" Header="Статус оплаты"/>
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding Path= ProccessingStatus, Converter={StaticResource ProccessingStatusValueConverter } }" Header="Статус обработки заказа"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path=TypeOfDelivery , Converter={StaticResource TypeOfPaymentValueConverter } }" Header="Тип оплаты"/>
+
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding ArrivalTime,StringFormat=dd-MM-yy}" Header="Поступление "/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding StartExecute,StringFormat=dd-MM-yy}" Header="Начало обрабортки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding CustomerName}" Header="Заказчик" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="150"  Binding="{Binding TypeOfDelivery, Converter={StaticResource TypeOfDeliveryValueConverter }}" Header="Тип доставки" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding RecipientFullName}" Header="Получатель" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="150"  Binding="{Binding RecipientTelephone}" Header="Телефон получателя" />
+
+
+
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding Comment }" Header="Комментарий" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding TotalToPay }" Header="Итого" />
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+
+
+
+
+                            </Grid>
+                        </StackPanel>
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="10" Width="10" Fill="Black" />
+                            <TextBlock Margin="3" >Заказы в Регионы</TextBlock>
+
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <StackPanel>
+                            <RadioButton x:Name="yyy"  IsChecked="True" >Все</RadioButton>
+                            <Grid>
+                                <DataGrid  x:Name="Regions"   SelectedItem="{Binding CurrentRegionOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"   ItemsSource="{Binding OrdersRegion, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction Command="{Binding EditCommand}"      CommandParameter="{Binding ElementName=Regions,Path=SelectedItem}"       />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <DataGrid.Columns >
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="50"  Binding="{Binding IdString}" Header="Номер заказа"/>
+
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding Path= PaymentStatus,Converter={StaticResource PaymentStatusValueConverter } }" Header="Статус оплаты"/>
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="100"  Binding="{Binding Path= ProccessingStatus, Converter={StaticResource ProccessingStatusValueConverter } }" Header="Статус обработки заказа"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding Path=TypeOfPayment, Converter={StaticResource TypeOfPaymentValueConverter } }" Header="Тип оплаты"/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding ArrivalTime,StringFormat=dd-MM-yy}" Header="Поступление "/>
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding StartExecute,StringFormat=dd-MM-yy}" Header="Начало обрабортки" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding CustomerName}" Header="Заказчик" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding CustomerPhone}" Header="Заказчик тел." />
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding RecipientFullName}" Header="Получатель" />
+                                        <DataGridTextColumn FontSize="15" IsReadOnly="True" Width="150"  Binding="{Binding RecipientTelephone}" Header="Телефон получателя" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding SendVariant, Converter={StaticResource SendVariantValueConverter }}" Header="Варианты отправки" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding AdressDilivery}" Header="Адресс доставки" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="150"  Binding="{Binding DepartureDate,StringFormat=dd-MM-yy}" Header="Дата отправки" />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="100"  Binding="{Binding TypeOfPacking, Converter={StaticResource TypeOfPackingValueConverter }}" Header="Упаковка" />
+
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding SendingCost }" Header="Стоимость доставки"  />
+                                        <DataGridTextColumn FontSize="15"  IsReadOnly="True" Width="200"  Binding="{Binding Comment }" Header="Комментарий" />
+                                        <DataGridTextColumn  FontSize="15" IsReadOnly="True" Width="200"  Binding="{Binding TotalToPay }" Header="Итого" />
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem.Content>
+
+                </TabItem>
+            </TabControl>
+
+
+
+
+
+
+
+
+
+
+
+        </Grid>
+
+    </ScrollViewer>
+
+
+
+
+
+
+</Page>

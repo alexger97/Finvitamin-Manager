@@ -1,0 +1,38 @@
+﻿<Window x:Class="FinVitamin_Manager.ListProducts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinVitamin_Manager"
+        xmlns:local2="clr-namespace:FinVitamin_Manager.Views.Converter"
+        mc:Ignorable="d"
+        Title="Товары" Height="387.444" Width="756.673">
+    <Window.Resources>
+        <local2:ProductConverter x:Key="Converter1"></local2:ProductConverter>
+        
+
+    </Window.Resources>
+
+    <Grid >
+
+       
+        <ListView x:Name="listView" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="339" Margin="131,15,0,0" Width="603" ItemsSource="{Binding  Path=Products,Mode=OneWay}" SelectedItem="{Binding CurrentProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Имя</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Decsription}" Width="150">Описание</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PurchasePrice}"  Width="100">Закупочная цена</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Width="40">Вес</GridViewColumn>
+                    
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="70">Цена</GridViewColumn>
+                    <GridViewColumn Width="70" DisplayMemberBinding="{Binding Path= CurrentBalance}" Header="В наличие"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="button" Content="Добавить товар" HorizontalAlignment="Left" Margin="13,178,0,0" VerticalAlignment="Top" Width="100" Command="{Binding AddCommand}"/>
+        
+
+    </Grid>
+
+</Window>
